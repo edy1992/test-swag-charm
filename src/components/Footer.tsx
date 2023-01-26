@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import { LocalPhone, KeyboardArrowDown  } from '@mui/icons-material';
 import facebook from '../assets/icons/facebook.svg';
@@ -9,6 +9,18 @@ import youtube from '../assets/icons/youtube.svg';
 import eeuu from '../assets/img/eeuu_flag.png';
 
 function Footer() {
+  const [ourCompany, setOurCompany] = useState<string[]>([]);
+  const [help, setHelp] = useState<string[]>([]);
+  const [information, setInformation] = useState<string[]>([]);
+  const [socialMedia, setSocialMedia] = useState<string[]>([]);
+
+  useEffect(() => {
+    setOurCompany(['About us', 'FAQ', 'Partnerships', 'Sustainability', 'Blog']);
+    setHelp(['Place a ticket', 'Track your order', 'Help center']);
+    setInformation(['Contact us', 'Live chat', 'Privacy', 'Terms of use']);
+    setSocialMedia([facebook, twitter, instagram, linkedin, youtube]);
+  }, []);
+  
   return (
       <Box bgcolor='#E6E8E9' paddingTop={'50px'}>
         <Box display='flex' flexDirection='column' justifyContent='start' alignItems='center'>
@@ -24,33 +36,28 @@ function Footer() {
                         <Typography fontSize={'15px'} color={'#091625'} fontWeight={'600'} marginTop={'-4px'}>+1-202-555-0129</Typography>
                     </Box>
                     <Box display='flex' flexDirection='row' justifyContent='center' alignItems='start'>
-                        <img src={facebook} height={'28px'} style={{marginRight: '10px', cursor: 'pointer'}} alt="" />
-                        <img src={twitter} height={'28px'} style={{marginRight: '10px', cursor: 'pointer'}} alt="" />
-                        <img src={instagram} height={'28px'} style={{marginRight: '10px', cursor: 'pointer'}} alt="" />
-                        <img src={linkedin} height={'28px'} style={{marginRight: '10px', cursor: 'pointer'}} alt="" />
-                        <img src={youtube} height={'28px'} style={{cursor: 'pointer'}} alt="" />
+                        {socialMedia.map((sm, i) => (
+                            <img key={i} src={sm} height={'28px'} style={{marginRight: '10px', cursor: 'pointer'}} alt="" />
+                        ))}
                     </Box>
                 </Grid>
                 <Grid item xs={3} sx={{paddingRight: '0px'}} display='flex' flexDirection='column' justifyContent='start' alignItems='start'>
                     <Typography fontSize={'16px'} color={'#091625'} fontWeight={'700'} sx={{paddingBottom: '3px'}}>Our company</Typography>
-                    <Typography fontSize={'15px'} color={'#3A4451'} fontWeight={'400'} sx={{cursor: 'pointer', paddingTop: '8px'}}>About us</Typography>
-                    <Typography fontSize={'15px'} color={'#3A4451'} fontWeight={'400'} sx={{cursor: 'pointer', paddingTop: '8px'}}>FAQ</Typography>
-                    <Typography fontSize={'15px'} color={'#3A4451'} fontWeight={'400'} sx={{cursor: 'pointer', paddingTop: '8px'}}>Partnerships</Typography>
-                    <Typography fontSize={'15px'} color={'#3A4451'} fontWeight={'400'} sx={{cursor: 'pointer', paddingTop: '8px'}}>Sustainability</Typography>
-                    <Typography fontSize={'15px'} color={'#3A4451'} fontWeight={'400'} sx={{cursor: 'pointer', paddingTop: '8px'}}>Blog</Typography>
+                    {ourCompany.map((oc, i) => (
+                        <Typography key={i} fontSize={'15px'} color={'#3A4451'} fontWeight={'400'} sx={{cursor: 'pointer', paddingTop: '8px'}}>{oc}</Typography>
+                    ))}
                 </Grid>
                 <Grid item xs={3} sx={{paddingRight: '0px'}} display='flex' flexDirection='column' justifyContent='start' alignItems='start'>
                     <Typography fontSize={'16px'} color={'#091625'} fontWeight={'700'} sx={{paddingBottom: '3px'}}>How can we help</Typography>
-                    <Typography fontSize={'15px'} color={'#3A4451'} fontWeight={'400'} sx={{cursor: 'pointer', paddingTop: '8px'}}>Place a ticket</Typography>
-                    <Typography fontSize={'15px'} color={'#3A4451'} fontWeight={'400'} sx={{cursor: 'pointer', paddingTop: '8px'}}>Track your order</Typography>
-                    <Typography fontSize={'15px'} color={'#3A4451'} fontWeight={'400'} sx={{cursor: 'pointer', paddingTop: '8px'}}>Help center</Typography>
+                    {help.map((h, i) => (
+                        <Typography key={i} fontSize={'15px'} color={'#3A4451'} fontWeight={'400'} sx={{cursor: 'pointer', paddingTop: '8px'}}>{h}</Typography>
+                    ))}
                 </Grid>
                 <Grid item xs={3} sx={{paddingRight: '0px'}} display='flex' flexDirection='column' justifyContent='start' alignItems='start'>
                     <Typography fontSize={'16px'} color={'#091625'} fontWeight={'700'} sx={{paddingBottom: '3px'}}>Information</Typography>
-                    <Typography fontSize={'15px'} color={'#3A4451'} fontWeight={'400'} sx={{cursor: 'pointer', paddingTop: '8px'}}>Contact us</Typography>
-                    <Typography fontSize={'15px'} color={'#3A4451'} fontWeight={'400'} sx={{cursor: 'pointer', paddingTop: '8px'}}>Live chat</Typography>
-                    <Typography fontSize={'15px'} color={'#3A4451'} fontWeight={'400'} sx={{cursor: 'pointer', paddingTop: '8px'}}>Privacy</Typography>
-                    <Typography fontSize={'15px'} color={'#3A4451'} fontWeight={'400'} sx={{cursor: 'pointer', paddingTop: '8px'}}>Terms of use</Typography>
+                    {information.map((inf, i) => (
+                        <Typography key={i} fontSize={'15px'} color={'#3A4451'} fontWeight={'400'} sx={{cursor: 'pointer', paddingTop: '8px'}}>{inf}</Typography>
+                    ))}
                 </Grid>
                 <Grid item xs={8} sx={{paddingTop: '50px'}} display='flex' flexDirection='column' justifyContent='start' alignItems='start'>
                     <Typography color={'#535C67'} fontSize={'14px'} fontWeight={'400'}>© 2022 Customer products. All rights reserved.</Typography>

@@ -6,8 +6,10 @@ import { formatPrice, getTotalPrice } from '../helpers';
 import imageProduct from '../assets/img/image-products.png';
 
 function Body() {
-    const [total, setTotal] = useState<number>(0);
-    const [cartItems, setCartItems] = useState<CartItem[]>(
+    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    
+  useEffect(() => {
+    setCartItems(
         [
             {
                 id: 1,
@@ -47,10 +49,8 @@ function Body() {
                 sku_price: 36.50,
                 isPack: false,
             }
-        ]);
-    
-  useEffect(() => {
-    setTotal(getTotalPrice(cartItems));
+        ]
+    );
   }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -67,20 +67,18 @@ function Body() {
     }
     const index = cartItems.findIndex((cItem: CartItem) => cItem.id === cartItem.id);
     if (index !== -1) {
-        let cartItemsAux = cartItems;
+        let cartItemsAux = [...cartItems];
         cartItemsAux[index] = {
             ...cartItemsAux[index],
             quantity: Number(value)
-        }
+        };
         setCartItems(cartItemsAux);
-        setTotal(getTotalPrice(cartItemsAux));
     }
   }
 
   const removeCartItem = (cartItemId: number) => {
     const cartItemsAux = cartItems.filter((cItem: CartItem) => cItem.id !== cartItemId);
     setCartItems(cartItemsAux);
-    setTotal(getTotalPrice(cartItemsAux));
   }
 
   return (
@@ -132,9 +130,6 @@ function Body() {
                                                       value={cartItem.quantity}
                                                       onChange={(e) => handleChange(e, cartItem)}
                                                       onKeyDown={(e) => handleKeyDown(e)}
-                                                      InputLabelProps={{
-                                                        shrink: true,
-                                                      }}
                                                       className="outlined-number"
                                                       inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                                                     />
@@ -206,7 +201,7 @@ function Body() {
                             <Typography color='#091625' fontSize='18px' marginTop='2px'>Total:</Typography>
                         </Grid>
                         <Grid item xs={6} display='flex' flexDirection='row' justifyContent='end' alignItems='center'>
-                            <Typography color='#091625' fontSize='24px' marginTop='2px'>${formatPrice(total)}</Typography>
+                            <Typography color='#091625' fontSize='24px' marginTop='2px'>${formatPrice(getTotalPrice(cartItems))}</Typography>
                         </Grid>
                     </Grid>
                     <Button variant="contained" color="primary" sx={{background: '#3A4451', color: 'white', fontSize: '16px', fontWeight: '600', borderRadius: '8px', marginBottom: '12px', width: '100%', textTransform: 'none'}}>

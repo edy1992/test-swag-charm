@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Grid, TextField, Typography } from '@mui/material';
 import { PersonOutline, Search, ShoppingCartOutlined } from '@mui/icons-material';
 
 function Header() {
+  const [menuItems, setMenuItems] = useState<string[]>([]);
+
+  useEffect(() => {
+    setMenuItems(['All productss', 'Packaging', 'Drinkware', 'Apparel', 'Notebooks', 'Backpack']);
+  }, []);
+
   return (
       <Box>
         <Box display='flex' flexDirection='column' justifyContent='start' alignItems='center' height='85px' bgcolor='#091625'>
@@ -34,12 +40,9 @@ function Header() {
         </Box>
         <Box display='flex' flexDirection='column' justifyContent='start' alignItems='center' height='60px' bgcolor='#E6E8E9'>
           <Box sx={{width: '80vw', height: '100%'}} display='flex' flexDirection='row' justifyContent='start' alignItems='center' >
-            <Typography fontSize={'15px'} color={'#535C67'} marginRight={'20px'} sx={{cursor: 'pointer'}}>All products</Typography>
-            <Typography fontSize={'15px'} color={'#535C67'} marginRight={'20px'} sx={{cursor: 'pointer'}}>Packaging</Typography>
-            <Typography fontSize={'15px'} color={'#535C67'} marginRight={'20px'} sx={{cursor: 'pointer'}}>Drinkware</Typography>
-            <Typography fontSize={'15px'} color={'#535C67'} marginRight={'20px'} sx={{cursor: 'pointer'}}>Apparel</Typography>
-            <Typography fontSize={'15px'} color={'#535C67'} marginRight={'20px'} sx={{cursor: 'pointer'}}>Notebooks</Typography>
-            <Typography fontSize={'15px'} color={'#535C67'} marginRight={'20px'} sx={{cursor: 'pointer'}}>Backpacks</Typography>
+            {menuItems.map((mi, i) => (
+              <Typography key={i} fontSize={'15px'} color={'#535C67'} marginRight={'20px'} sx={{cursor: 'pointer'}}>{mi}</Typography>
+            ))}
           </Box>
         </Box>
       </Box>
