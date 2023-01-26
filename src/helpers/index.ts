@@ -5,5 +5,5 @@ export const formatPrice = (price: number) => {
 };
 
 export const getTotalPrice = (cartItems: CartItem[]) => {
-    return cartItems.reduce((a, b) => a + (b.sku_price * b.quantity), 0);;
+    return cartItems.reduce((a, b) => a + (b.sku_price * b.quantity), 0);
 };
